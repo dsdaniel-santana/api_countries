@@ -1,15 +1,14 @@
 <?php
+
 class ApiConsumer
 {
     private function api($endpoint, $method = 'GET', $post_fields = [])
     {
-
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://restcountries.com/v3.1/$endpoint",
+            CURLOPT_URL => "https://restcountries.com/v2/$endpoint",
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -17,6 +16,7 @@ class ApiConsumer
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => [
                 "Accept: */*"
+
             ],
         ]);
 
@@ -33,10 +33,38 @@ class ApiConsumer
         }
     }
 
-    public function get_all_countries() 
+    //public function get_all_countries()
+    //{
+    //    //get all countries data
+    //    $results = $this->api('all');
+    //    $countries  = [];
+    //    foreach($results as $result){
+    //        $countries[] = $result['name']['common'];
+    //    }
+    //    return $countries;
+    //}
+
+    public function get_all_countries()
     {
-        // get all countries data
-        return $this->api('all');
+        //get all countries data
+        $results = $this->api('all');
+        $countries  = [];
+        foreach($results as $result){
+            if(isset($result['name'])){
+                $countries[] = $result['name'];    
+            }
+
+
+            //$countries[] = $result['name']['common'];
+        }
+        sort($countries);
+        return $countries;
     }
+
     
+    public function get_country($country_name)
+    {
+        //get a specific country
+        return $this->api("name/$country_name");
+    }
 }
