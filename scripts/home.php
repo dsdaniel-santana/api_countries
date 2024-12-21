@@ -35,39 +35,35 @@ $countries = $api->get_all_countries();
 
 <script>
 
-      document.addEventListener('DOMContentLoaded', () => {
-     
-          //country select
-          const select_country = document.querySelector("#select_country");
-          select_country.addEventListener('change', () =>{
-            const country = select_country.value;
-            console.log(country);
+       document.addEventListener('DOMContentLoaded', () => {
+               //country select
+           const select_country = document.querySelector("#select_country");
+           select_country.addEventListener('change', () =>{
+             const country = select_country.value;
+             window.location.href = `?route=country&country_name=${country}`
+          
+           });
+        
             
-          });
-          
-              //window.location.href = `?route=country&country_name=${country}`
-          
-      });
-
-//    document.addEventListener('DOMContentLoaded', () => {
-
-//     //country select
-//     const select_country = document.querySelector("#select_country");
-//     if (select_country) {
-//         // Exibe o valor inicial
-//         const country = select_country.value;
-//         console.log(country);
-
-//         // Adiciona o listener para mudanças
-//         select_country.addEventListener('change', () => {
-//             console.log(select_country.value);
-//         });
-//     } else {
-//         console.error('Element with id "select_country" not found');
-//     }
-// });
+        
+       });
 
 
+//     document.addEventListener('DOMContentLoaded', () => {
+//      //country select
+//      const select_country = document.querySelector("#select_country");
+//      if (select_country) {
+//          // Exibe o valor inicial
+//          const country = select_country.value;
+//          console.log(country);
+//          // Adiciona o listener para mudanças
+//          select_country.addEventListener('change', () => {
+//              console.log(select_country.value);
+//          });
+//      } else {
+//          console.error('Element with id "select_country" not found');
+//      }
+//  });
 
 </script>
 

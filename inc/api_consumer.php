@@ -33,35 +33,56 @@ class ApiConsumer
         }
     }
 
-    //public function get_all_countries()
-    //{
-    //    //get all countries data
-    //    $results = $this->api('all');
-    //    $countries  = [];
-    //    foreach($results as $result){
-    //        $countries[] = $result['name']['common'];
-    //    }
-    //    return $countries;
-    //}
+    // public function get_all_countries()
+    // {
+    //     //get all countries data
+    //     $results = $this->api('all');
+    //     $countries  = [];
+    //     foreach($results as $result){
+    //         $countries[] = $result['name']['common'];
+    //     }
+    //     return $countries;
+    // }
+
+    //****************************************************** */
+    // public function get_all_countries()
+    // {
+    //     //get all countries data
+    //     $results = $this->api('all');
+    //     $countries  = [];
+    //     foreach ($results as $result) {
+    //         if (isset($result['name'])) {
+    //             $countries[] = $result['name'];
+    //         }
+    //         //$countries[] = $result['name']['common'];
+    //     }
+    //     sort($countries);
+    //     return $countries;
+    // }
+    //********************************* */
 
     public function get_all_countries()
     {
-        //get all countries data
+        // Obter dados de todos os países
         $results = $this->api('all');
-        $countries  = [];
-        foreach($results as $result){
-            if(isset($result['name'])){
-                $countries[] = $result['name'];    
+        $countries = [];
+        foreach ($results as $result) {
+            if (isset($result['name']['common'])) {
+                $countries[] = $result['name']['common'];
+            } elseif (isset($result['name'])) {
+                // Fallback para o índice 'name', caso 'common' não exista
+                $countries[] = is_array($result['name']) ? implode(', ', $result['name']) : $result['name'];
+            } else {
+                echo "Estrutura inesperada: ";
+                print_r($result);
             }
-
-
-            //$countries[] = $result['name']['common'];
         }
         sort($countries);
         return $countries;
     }
-
     
+
+
     public function get_country($country_name)
     {
         //get a specific country
